@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Aplikasi Pusat</title>
+    <!-- Memuatkan Tailwind CSS untuk penggayaan pantas dan moden -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuatkan Font Awesome untuk ikon yang mudah digunakan dan pelbagai -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Memuatkan Google Fonts (Inter) untuk tipografi yang bersih -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6', // Warna tema utama (Teal)
+                            600: '#0d9488',
+                            900: '#134e4a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Gaya tambahan untuk animasi hover pada ikon aplikasi */
+        .app-icon-container {
+            transition: all 0.2s ease-in-out;
+        }
+        .app-icon-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+
+    <!-- Bar Navigasi Atas -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 h-16 flex-shrink-0 z-10 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
+            
+            <!-- Bahagian Kiri: Logo/Tajuk -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center">
+                    <div class="bg-brand-500 text-white p-2 rounded-lg mr-3 shadow-sm">
+                        <i class="fas fa-cubes text-lg"></i>
+                    </div>
+                    <h1 id="header-title" class="text-xl font-bold text-gray-900 tracking-tight">Portal Hab Utama</h1>
+                </div>
+            </div>
+
+            <!-- Bahagian Kanan: Profil/Tetapan Ringkas -->
+            <div class="flex items-center space-x-3">
+                <button class="text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <div class="w-9 h-9 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 font-semibold border border-brand-200 cursor-pointer">
+                    AZ
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Kawasan Utama: Papan Pemuka dengan Grid Ikon -->
+    <main id="dashboard-view" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800">Selamat Datang, Admin</h2>
+            <p class="text-gray-500 mt-1">Pilih aplikasi sistem untuk memulakan tugasan anda.</p>
+        </div>
+
+        <!-- Bekas Grid untuk Ikon Aplikasi -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" id="app-grid">
+            <!-- Ikon akan dijana di sini oleh JavaScript -->
+        </div>
+        
+    </main>
+
+    <!-- Logik Aplikasi -->
+    <script>
+        // Data Konfigurasi: Senarai 10 Sistem Aplikasi anda
+        // Anda boleh menukar tajuk, warna, ikon, dan pautan web (url) mengikut keperluan anda
+        const systemApps = [
+            {
+                id: 'sys1',
+                title: 'Sistem HR',
+                icon: 'fa-users',
+                color: 'bg-blue-500',
+                textColor: 'text-blue-500',
+                bgColor: 'bg-blue-50',
+                url: 'https://example.com/hr' // Gantikan dengan URL sebenar
+            },
+            {
+                id: 'sys2',
+                title: 'Sistem Kewangan',
+                icon: 'fa-chart-line',
+                color: 'bg-emerald-500',
+                textColor: 'text-emerald-500',
+                bgColor: 'bg-emerald-50',
+                url: 'https://example.com/finance'
+            },
+            {
+                id: 'sys3',
+                title: 'Inventori',
+                icon: 'fa-boxes-stacked',
+                color: 'bg-amber-500',
+                textColor: 'text-amber-500',
+                bgColor: 'bg-amber-50',
+                url: 'https://example.com/inventory'
+            },
+            {
+                id: 'sys4',
+                title: 'CRM Pelanggan',
+                icon: 'fa-handshake',
+                color: 'bg-purple-500',
+                textColor: 'text-purple-500',
+                bgColor: 'bg-purple-50',
+                url: 'https://example.com/crm'
+            },
+            {
+                id: 'sys5',
+                title: 'Pengurusan Projek',
+                icon: 'fa-tasks',
+                color: 'bg-indigo-500',
+                textColor: 'text-indigo-500',
+                bgColor: 'bg-indigo-50',
+                url: 'https://example.com/projects'
+            },
+            {
+                id: 'sys6',
+                title: 'Sistem Laporan',
+                icon: 'fa-file-contract',
+                color: 'bg-rose-500',
+                textColor: 'text-rose-500',
+                bgColor: 'bg-rose-50',
+                url: 'https://example.com/reports'
+            },
+            {
+                id: 'sys7',
+                title: 'Sokongan IT',
+                icon: 'fa-headset',
+                color: 'bg-cyan-500',
+                textColor: 'text-cyan-500',
+                bgColor: 'bg-cyan-50',
+                url: 'https://example.com/support'
+            },
+            {
+                id: 'sys8',
+                title: 'Komunikasi',
+                icon: 'fa-comments',
+                color: 'bg-teal-500',
+                textColor: 'text-teal-500',
+                bgColor: 'bg-teal-50',
+                url: 'https://example.com/chat'
+            },
+            {
+                id: 'sys9',
+                title: 'Aset Syarikat',
+                icon: 'fa-building',
+                color: 'bg-orange-500',
+                textColor: 'text-orange-500',
+                bgColor: 'bg-orange-50',
+                url: 'https://example.com/assets'
+            },
+            {
+                id: 'sys10',
+                title: 'Analitik Data',
+                icon: 'fa-chart-pie',
+                color: 'bg-fuchsia-500',
+                textColor: 'text-fuchsia-500',
+                bgColor: 'bg-fuchsia-50',
+                url: 'https://example.com/analytics'
+            }
+        ];
+
+        // Fungsi untuk menjana Grid Ikon Aplikasi secara dinamik
+        function renderDashboard() {
+            const gridContainer = document.getElementById('app-grid');
+            gridContainer.innerHTML = ''; // Bersihkan container
+
+            systemApps.forEach(app => {
+                // Buat elemen kad (butang) untuk setiap aplikasi
+                const card = document.createElement('button');
+                card.className = 'app-icon-container flex flex-col items-center justify-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 group';
+                
+                // Tambah data atribut untuk pengecaman
+                card.dataset.appId = app.id;
+                
+                // Struktur dalam kad: Ikon + Tajuk
+                card.innerHTML = `
+                    <div class="w-16 h-16 rounded-2xl ${app.bgColor} ${app.textColor} flex items-center justify-center mb-4 transition-transform group-hover:scale-110 duration-200">
+                        <i class="fas ${app.icon} text-3xl"></i>
+                    </div>
+                    <span class="text-sm font-semibold text-gray-700 text-center leading-tight group-hover:text-brand-600 transition-colors">
+                        ${app.title}
+                    </span>
+                `;
+
+                // Tambah event listener apabila ikon diklik - Buka di tab baharu untuk elak sekatan
+                card.addEventListener('click', () => {
+                    window.open(app.url, '_blank', 'noopener,noreferrer');
+                });
+
+                // Masukkan ke dalam grid
+                gridContainer.appendChild(card);
+            });
+        }
+
+        // Jalankan fungsi awal semasa halaman siap dimuatkan
+        window.addEventListener('DOMContentLoaded', () => {
+            renderDashboard();
+        });
+
+    </script>
+</body>
+</html>
